@@ -6,6 +6,18 @@ import random
 import math
 import numpy as np
 
+
+#####################################################################
+#####                          TO DO                            #####
+#####                   2D Random array                         #####
+#####                   Add Spcaeships!                         #####
+#####   Declare grid size, starting displacemnet outside main   #####
+#####   Add options to choose your own size/displacement        #####
+#####        Add option to draw your own pattern                #####
+#####           Add option to choose your own colors            #####
+#####################################################################
+
+
 # Color definitions
 color_about_to_die = (200, 200, 225)
 color_alive = (255, 255, 215)
@@ -45,25 +57,31 @@ def glider_cannon(dimx, dimy):
                         [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]);
-    pos = (20,30)
+    pos = (2,3)
     cells[pos[0]:pos[0]+pattern.shape[0], pos[1]:pos[1]+pattern.shape[1]] = pattern
     return cells
 
 def blinker(dimx, dimy):
     # The pattern of the blinker
     cells = np.zeros((dimy, dimx))
-    pattern = np.array([[0,0,0,0,0,1,1,1]]);
-    pos = (20,30)
+    pattern = np.array([[0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]);
+    pos = (20, 35)
     cells[pos[0]:pos[0]+pattern.shape[0], pos[1]:pos[1]+pattern.shape[1]] = pattern
     return cells
 
 #def random_cells(dimx, dimy):
-#    # Ranodm pattern
-#    cells = np.zeros((dimy, dimx))
-#    pattern = np.random.randint(2, size=200);
-#    pos = (0,0)
-#    cells[pos[0]:pos[0]+pattern.shape[0], pos[1]:pos[1]+pattern.shape[1]] = pattern
-#    return cells
+    # Write random 2D!!!!! Array filled with [0,1]
 
 
 def main(dimx, dimy, cellsize):
@@ -72,7 +90,11 @@ def main(dimx, dimy, cellsize):
     pygame.display.set_caption("A Game of Life")
 
     cells = glider_cannon(dimx, dimy)
-
+    
+    #
+    #   Write options for choosing which mode to display using PyGame
+    #
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -83,4 +105,4 @@ def main(dimx, dimy, cellsize):
         pygame.display.update()
 
 if __name__ == "__main__":
-    main(120, 100, 10)
+    main(120, 50, 10)
