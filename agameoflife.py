@@ -1,5 +1,6 @@
 # Conway's A Game of Life
 # Oliver Sulyok
+
 from sys import exit
 import pygame
 import random
@@ -9,20 +10,29 @@ import numpy as np
 
 #####################################################################
 #####                          TO DO                            #####
-#####                   2D Random array                         #####
 #####                   Add Spcaeships!                         #####
-#####   Declare grid size, starting displacemnet outside main   #####
 #####   Add options to choose your own size/displacement        #####
 #####        Add option to draw your own pattern                #####
 #####           Add option to choose your own colors            #####
 #####################################################################
 
+# Screen definitions and starting postions for some shapes
+x_size = 150
+y_size = 120
+cell_size = 7
+x_start = 3
+y_start = 3
 
 # Color definitions
-color_about_to_die = (200, 200, 225)
-color_alive = (255, 255, 215)
+color_about_to_die = (179, 179, 255)
+color_alive = (255, 255, 255)
 color_background = (0, 0, 0)
 color_grid = (30, 30, 60)
+
+# Definitions for random shape
+m_range = x_size - 2*x_start
+n_range = y_size - 2*y_start
+
 
 # Update states. It follow Conway's rules for game
 def update(surface, current, size):
@@ -57,7 +67,7 @@ def glider_cannon(dimx, dimy):
                         [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]);
-    pos = (2,3)
+    pos = (x_start,y_start)
     cells[pos[0]:pos[0]+pattern.shape[0], pos[1]:pos[1]+pattern.shape[1]] = pattern
     return cells
 
@@ -80,8 +90,12 @@ def blinker(dimx, dimy):
     cells[pos[0]:pos[0]+pattern.shape[0], pos[1]:pos[1]+pattern.shape[1]] = pattern
     return cells
 
-#def random_cells(dimx, dimy):
-    # Write random 2D!!!!! Array filled with [0,1]
+def random_cells(dimx, dimy):
+    cells = np.zeros((dimy, dimx))
+    pattern = np.random.randint(2, size=(n_range, m_range))
+    pos = (x_start, y_start)
+    cells[pos[0]:pos[0]+pattern.shape[0], pos[1]:pos[1]+pattern.shape[1]] = pattern
+    return cells
 
 
 def main(dimx, dimy, cellsize):
@@ -89,7 +103,7 @@ def main(dimx, dimy, cellsize):
     surface = pygame.display.set_mode((dimx * cellsize, dimy * cellsize))
     pygame.display.set_caption("A Game of Life")
 
-    cells = glider_cannon(dimx, dimy)
+    cells = random_cells(dimx, dimy)
     
     #
     #   Write options for choosing which mode to display using PyGame
@@ -105,4 +119,4 @@ def main(dimx, dimy, cellsize):
         pygame.display.update()
 
 if __name__ == "__main__":
-    main(120, 50, 10)
+    main(x_size, y_size, cell_size)
